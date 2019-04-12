@@ -3,9 +3,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var config = require('./config');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+
 
 var app = express();
 
@@ -37,5 +39,13 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.listen(config.app.port,function(err,done){
+  if(err){
+    console.log('error in the server')
+  }else{
+    console.log('port running at',config.app.port)
+  }
+})
 
 module.exports = app;
