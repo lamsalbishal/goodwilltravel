@@ -4,7 +4,15 @@ var router = express.Router();
 var homeModel = require('../modles/home.modle');
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  homeModel.find().exec(function(err,product){
+    if(err)
+    {
+      return next(err);
+    }
+    res.render('index', { title: product });
+    res.json(product);
+  })
+  
 });
 
 router.get('/product',function(req,res,next){
